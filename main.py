@@ -18,22 +18,29 @@ def create_default_config():
     pass
 
 
-if __name__ == "__main__":
-    # Parsing degli argomenti da linea di comando
-    parser = argparse.ArgumentParser(description="Programma con GUI o configurazione")
-    parser.add_argument("--gui", action="store_true", help="Esegui con GUI")
+def main():
+    # Create an ArgumentParser object with a description of the program
+    parser = argparse.ArgumentParser(description="Useful program to manage and check MAME roms")
+    parser.add_argument("--gui", action="store_true", help="Run with GUI")
+    parser.add_argument("--config-file", help="Specify a configuration file")
+    parser.add_argument("--other-param", help="Other parameters")
+
     args = parser.parse_args()
 
-    # Controlla se è richiesta la GUI
+    # Check the arguments and take appropriate actions
     if args.gui:
+        print("Running with GUI")
+        # Call the function to run with GUI
         run_gui()
+    elif args.config_file:
+        print("Running with the specified configuration file:", args.config_file)
+        # Call the function to run with a specific configuration file
+        # run_with_config(args.config_file)
+    elif args.other_param:
+        print("Other parameters:", args.other_param)
     else:
-        # Controlla la presenza del file di configurazione
-        if not check_config_file():
-            # Il file di configurazione pyroman.ini non esiste, crea un file di configurazione di default
-            create_default_config()
-            print("File di configurazione 'pyroman.ini' creato.")
-        else:
-            print("Il file di configurazione 'pyroman.ini' esiste.")
+        print("No params are passed!!")
+        # Perform other logic based on the passed parameters
 
-            # Implementa il resto della logica per l'interazione da console e la configurazione
+if __name__ == "__main__":
+    main()
